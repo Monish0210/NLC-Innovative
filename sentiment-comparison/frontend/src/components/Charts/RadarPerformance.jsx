@@ -4,25 +4,42 @@ import { Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Filler,
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend)
 
 function normalizeMetrics(metrics) {
-  // Normalize accuracy (higher better), avg_time (lower better), size_mb (lower better)
+  // Normalize accuracy (higher better), inference_times (lower better), model_sizes (lower better)
   const defaults = {
-    Feedforward: { accuracy: 0.82, size_mb: 12.3, avg_time: 18.4 },
-    GRU: { accuracy: 0.85, size_mb: 24.7, avg_time: 31.2 },
-    LSTM: { accuracy: 0.88, size_mb: 29.1, avg_time: 38.5 },
-    BERT: { accuracy: 0.94, size_mb: 420.5, avg_time: 102.3 },
+    Feedforward: { accuracy: 0.82, model_sizes: 12.3, inference_times: 18.4 },
+    GRU: { accuracy: 0.85, model_sizes: 24.7, inference_times: 31.2 },
+    LSTM: { accuracy: 0.88, model_sizes: 29.1, inference_times: 38.5 },
+    BERT: { accuracy: 0.94, model_sizes: 420.5, inference_times: 102.3 },
   }
-  const m = metrics || defaults
-  const accs = Object.values(m).map((x) => x.accuracy)
-  const times = Object.values(m).map((x) => x.avg_time)
-  const sizes = Object.values(m).map((x) => x.size_mb)
+  
+  if (!metrics) {
+    const m = defaults
+    const accs = Object.values(m).map((x) => x.accuracy)
+    const times = Object.values(m).map((x) => x.inference_times)
+    const sizes = Object.values(m).map((x) => x.model_sizes)
+
+    const minTime = Math.min(...times), maxTime = Math.max(...times)
+    const minSize = Math.min(...sizes), maxSize = Math.max(...sizes)
+
+    const labels = Object.keys(m)
+    const acc = labels.map((k) => m[k].accuracy) // already 0-1
+    const speed = labels.map((k) => 1 - (m[k].inference_times - minTime) / (maxTime - minTime || 1))
+    const compact = labels.map((k) => 1 - (m[k].model_sizes - minSize) / (maxSize - minSize || 1))
+
+    return { labels, acc, speed, compact }
+  }
+
+  // Use the new metrics structure
+  const labels = Object.keys(metrics.accuracy)
+  const acc = labels.map((k) => metrics.accuracy[k])
+  const times = labels.map((k) => metrics.inference_times[k])
+  const sizes = labels.map((k) => metrics.model_sizes[k])
 
   const minTime = Math.min(...times), maxTime = Math.max(...times)
   const minSize = Math.min(...sizes), maxSize = Math.max(...sizes)
 
-  const labels = Object.keys(m)
-  const acc = labels.map((k) => m[k].accuracy) // already 0-1
-  const speed = labels.map((k) => 1 - (m[k].avg_time - minTime) / (maxTime - minTime || 1))
-  const compact = labels.map((k) => 1 - (m[k].size_mb - minSize) / (maxSize - minSize || 1))
+  const speed = times.map((time) => 1 - (time - minTime) / (maxTime - minTime || 1))
+  const compact = sizes.map((size) => 1 - (size - minSize) / (maxSize - minSize || 1))
 
   return { labels, acc, speed, compact }
 }

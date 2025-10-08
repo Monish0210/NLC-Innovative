@@ -4,17 +4,25 @@ import { Chart as ChartJS, LinearScale, PointElement, Tooltip, Legend } from 'ch
 ChartJS.register(LinearScale, PointElement, Tooltip, Legend)
 
 export default function ComparisonScatter({ metrics }) {
-  const m = metrics || {
-    Feedforward: { accuracy: 0.82, avg_time: 18.4 },
-    GRU: { accuracy: 0.85, avg_time: 31.2 },
-    LSTM: { accuracy: 0.88, avg_time: 38.5 },
-    BERT: { accuracy: 0.94, avg_time: 102.3 },
+  const defaults = {
+    Feedforward: { accuracy: 0.82, inference_times: 18.4 },
+    GRU: { accuracy: 0.85, inference_times: 31.2 },
+    LSTM: { accuracy: 0.88, inference_times: 38.5 },
+    BERT: { accuracy: 0.94, inference_times: 102.3 },
   }
+  
+  const m = metrics ? {
+    Feedforward: { accuracy: metrics.accuracy.Feedforward, inference_times: metrics.inference_times.Feedforward },
+    GRU: { accuracy: metrics.accuracy.GRU, inference_times: metrics.inference_times.GRU },
+    LSTM: { accuracy: metrics.accuracy.LSTM, inference_times: metrics.inference_times.LSTM },
+    BERT: { accuracy: metrics.accuracy.BERT, inference_times: metrics.inference_times.BERT },
+  } : defaults
+  
   const labels = Object.keys(m)
   const data = {
     datasets: labels.map((name, idx) => ({
       label: name,
-      data: [{ x: m[name].avg_time, y: Math.round(m[name].accuracy * 100) }],
+      data: [{ x: m[name].inference_times, y: Math.round(m[name].accuracy * 100) }],
       backgroundColor: `rgba(${100 + idx * 30}, 99, 132, 0.7)`,
     })),
   }

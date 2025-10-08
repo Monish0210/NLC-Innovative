@@ -4,8 +4,8 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip, Lege
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend)
 
 export default function AccuracyBar({ metrics }) {
-  const labels = metrics ? Object.keys(metrics) : ['Feedforward', 'GRU', 'LSTM', 'BERT']
-  const values = metrics ? Object.values(metrics).map((m) => Math.round(m.accuracy * 100)) : [82, 85, 88, 94]
+  const labels = metrics?.accuracy ? Object.keys(metrics.accuracy) : ['Feedforward', 'GRU', 'LSTM', 'BERT']
+  const values = metrics?.accuracy ? Object.values(metrics.accuracy).map((acc) => Math.round(acc * 100)) : [82, 85, 88, 94]
 
   const data = {
     labels,

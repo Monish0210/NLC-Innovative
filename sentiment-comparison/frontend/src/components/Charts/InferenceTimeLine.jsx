@@ -4,8 +4,8 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend)
 
 export default function InferenceTimeLine({ metrics }) {
-  const labels = metrics ? Object.keys(metrics) : ['Feedforward', 'GRU', 'LSTM', 'BERT']
-  const times = metrics ? Object.values(metrics).map((m) => m.avg_time) : [18.4, 31.2, 38.5, 102.3]
+  const labels = metrics?.inference_times ? Object.keys(metrics.inference_times) : ['Feedforward', 'GRU', 'LSTM', 'BERT']
+  const times = metrics?.inference_times ? Object.values(metrics.inference_times) : [18.4, 31.2, 38.5, 102.3]
 
   const data = {
     labels,
