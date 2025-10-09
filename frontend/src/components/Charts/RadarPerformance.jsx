@@ -4,7 +4,6 @@ import { Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Filler,
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend)
 
 function normalizeMetrics(metrics) {
-  // Normalize accuracy (higher better), inference_times (lower better), model_sizes (lower better)
   const defaults = {
     Feedforward: { accuracy: 0.82, model_sizes: 12.3, inference_times: 18.4 },
     GRU: { accuracy: 0.85, model_sizes: 24.7, inference_times: 31.2 },
@@ -22,14 +21,13 @@ function normalizeMetrics(metrics) {
     const minSize = Math.min(...sizes), maxSize = Math.max(...sizes)
 
     const labels = Object.keys(m)
-    const acc = labels.map((k) => m[k].accuracy) // already 0-1
+    const acc = labels.map((k) => m[k].accuracy)
     const speed = labels.map((k) => 1 - (m[k].inference_times - minTime) / (maxTime - minTime || 1))
     const compact = labels.map((k) => 1 - (m[k].model_sizes - minSize) / (maxSize - minSize || 1))
 
     return { labels, acc, speed, compact }
   }
 
-  // Use the new metrics structure
   const labels = Object.keys(metrics.accuracy)
   const acc = labels.map((k) => metrics.accuracy[k])
   const times = labels.map((k) => metrics.inference_times[k])

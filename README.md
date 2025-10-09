@@ -10,7 +10,7 @@ Dev Setup
 
 Backend
 ```bash
-cd sentiment-comparison/backend
+cd backend
 python -m venv .venv
 . .venv/Scripts/activate  # Windows PowerShell: .venv\\Scripts\\Activate.ps1
 pip install -r requirements.txt
@@ -19,7 +19,7 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 Frontend
 ```bash
-cd sentiment-comparison/frontend
+cd frontend
 npm install
 npm run dev
 ```

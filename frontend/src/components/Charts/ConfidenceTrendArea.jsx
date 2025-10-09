@@ -4,9 +4,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Filler, Tooltip, Legend)
 
-// Placeholder component that would be fed by a session-level store of past predictions
 export default function ConfidenceTrendArea() {
-  // Fake 10-step confidence trends per model
   const labels = Array.from({ length: 10 }, (_, i) => `T${i + 1}`)
   const data = useMemo(() => ({
     labels,
