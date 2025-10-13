@@ -17,18 +17,20 @@ export default function SentimentDistributionDoughnut({ results = [] }) {
       {
         data: values,
         backgroundColor: [
-          'rgba(16,185,129,0.7)',
-          'rgba(239,68,68,0.7)',
-          'rgba(234,179,8,0.7)'
+          'rgba(22,163,74,0.7)', // positive
+          'rgba(239,68,68,0.7)', // negative
+          'rgba(234,179,8,0.7)'  // neutral
         ],
       },
     ],
   }
 
   return (
-    <div className="bg-white rounded shadow p-4">
+    <div className="card p-4">
       <div className="font-semibold mb-2">Sentiment Distribution</div>
-      <Doughnut data={data} />
+      <Doughnut redraw data={data} options={{
+        plugins: { legend: { labels: { color: '#EAEAEA' } } },
+      }} />
     </div>
   )
 }

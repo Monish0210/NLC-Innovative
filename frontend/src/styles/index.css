@@ -2,6 +2,82 @@
 @tailwind components;
 @tailwind utilities;
 
-/* basic container spacing helpers can go here if needed */
+/* Base dark theme and typography */
+@layer base {
+  :root {
+    --bg: #111111;
+    --surface: #1a1a1a;
+    --surface-elevated: #222222;
+    --border: #2a2a2a;
+    --text: #EAEAEA;
+    --muted: #888888;
+  }
+
+  html, body, #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-background text-textPrimary font-sans antialiased;
+  }
+
+  ::selection {
+    background: rgba(59, 130, 246, 0.25);
+  }
+}
+
+/* Components */
+@layer components {
+  .card {
+    @apply bg-surfaceElevated/80 backdrop-blur-sm border border-border rounded-xl shadow-soft;
+  }
+  .card-glass {
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+    box-shadow: 0 1px 0 0 rgba(255,255,255,0.05) inset, 0 8px 24px rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .card-hover {
+    @apply transition-transform duration-200 ease-subtle hover:-translate-y-[1px] hover:shadow-soft;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors duration-200 ease-subtle disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-primary {
+    @apply btn bg-brand text-white hover:bg-brand-600 focus:outline-none focus:ring-2 focus:ring-brand/40;
+  }
+  .btn-ghost {
+    @apply btn bg-transparent text-textPrimary border border-border hover:bg-surface;
+  }
+  .input {
+    @apply w-full bg-surface text-textPrimary placeholder:text-placeholder border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-brand/40 focus:border-brand/40 transition;
+  }
+}
+
+/* Utilities */
+@layer utilities {
+  .container-max {
+    @apply max-w-6xl mx-auto px-4 md:px-6 lg:px-8;
+  }
+  .fade-in {
+    animation: fade-in 300ms ease-out both;
+  }
+  .slide-up {
+    animation: slide-up 300ms ease-out both;
+  }
+  .stagger-1 { animation-delay: 60ms; }
+  .stagger-2 { animation-delay: 120ms; }
+  .stagger-3 { animation-delay: 180ms; }
+  .stagger-4 { animation-delay: 240ms; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(6px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
 
 

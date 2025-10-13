@@ -45,23 +45,61 @@ function normalizeMetrics(metrics) {
 export default function RadarPerformance({ metrics }) {
   const { labels, acc, speed, compact } = normalizeMetrics(metrics)
 
+  const colors = [
+    { bg: 'rgba(99,102,241,0.2)', border: 'rgba(99,102,241,1)' },
+    { bg: 'rgba(16,185,129,0.2)', border: 'rgba(16,185,129,1)' },
+    { bg: 'rgba(59,130,246,0.2)', border: 'rgba(59,130,246,1)' },
+    { bg: 'rgba(239,68,68,0.2)', border: 'rgba(239,68,68,1)' }
+  ]
+
   const data = {
     labels: ['Accuracy', 'Speed', 'Compactness'],
     datasets: labels.map((name, idx) => ({
       label: name,
       data: [acc[idx], speed[idx], compact[idx]],
-      backgroundColor: `rgba(${50 + idx * 40},99,132,0.2)`,
-      borderColor: `rgba(${50 + idx * 40},99,132,1)`,
-      borderWidth: 1,
+      backgroundColor: colors[idx].bg,
+      borderColor: colors[idx].border,
+      borderWidth: 2,
+      pointRadius: 3,
+      pointHoverRadius: 5
     })),
   }
 
   return (
-    <div className="bg-white rounded shadow p-4">
-      <div className="font-semibold mb-2">Performance Radar (normalized)</div>
-      <Radar data={data} options={{ scales: { r: { min: 0, max: 1 } } }} />
+    <div className="card card-glass p-5">
+      <h3 className="font-semibold text-lg mb-4 text-gray-100">Performance Radar</h3>
+      <div style={{ height: '300px' }}>
+        <Radar redraw data={data} options={{
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: { 
+            r: { 
+              min: 0, 
+              max: 1, 
+              grid: { color: '#2a2a2a' }, 
+              pointLabels: { 
+                color: '#EAEAEA', 
+                font: { size: 12, weight: '500' } 
+              }, 
+              ticks: { 
+                backdropColor: 'transparent', 
+                color: '#888888', 
+                stepSize: 0.25 
+              }
+            } 
+          },
+          plugins: { 
+            legend: { 
+              labels: { 
+                color: '#EAEAEA',
+                font: { size: 11, weight: '500' },
+                padding: 12,
+                usePointStyle: true
+              }
+            }
+          },
+        }} />
+      </div>
     </div>
   )
 }
-
-

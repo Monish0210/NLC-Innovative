@@ -41,24 +41,26 @@ export default function InputForm({ onResults }) {
   }
 
   return (
-    <div className="bg-white p-6 border rounded-lg shadow-sm">
+    <div className="card card-hover p-6">
       <form onSubmit={handleSubmit} className="space-y-4">
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Enter text to analyze sentiment..."
-          className="w-full h-32 p-3 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
+          className="input h-36 p-3 resize-y"
           disabled={isLoading}
         />
-        <button
-          type="submit"
-          className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed transition"
-          disabled={isLoading}
-        >
-          {isLoading ? 'Analyzing...' : 'Analyze'}
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            type="submit"
+            className="btn-primary"
+            disabled={isLoading}
+          >
+            {isLoading ? 'Analyzing...' : 'Analyze'}
+          </button>
+          {error && <p className="text-sm text-red-400">{error}</p>}
+        </div>
       </form>
-      {error && <p className="mt-4 text-red-600">{error}</p>}
     </div>
   )
 }
