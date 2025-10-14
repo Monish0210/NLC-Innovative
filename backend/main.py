@@ -13,7 +13,7 @@ genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 gemini_model = genai.GenerativeModel('models/gemini-pro-latest')
 
 
-def get_sentiment_from_gemini(text: str) -> Tuple[str, float]:
+def get_sentiment(text: str) -> Tuple[str, float]:
     """
     Calls the Gemini API to get a single, high-quality sentiment prediction.
     """
@@ -67,7 +67,7 @@ def predict_sentiment(payload: PredictRequest) -> Dict[str, Any]:
     """
     
     start_time = time.perf_counter()
-    base_sentiment, base_confidence = get_sentiment_from_gemini(payload.text)
+    base_sentiment, base_confidence = get_sentiment(payload.text)
     api_call_time_ms = (time.perf_counter() - start_time) * 1000.0
     
     results: List[Dict[str, Any]] = []

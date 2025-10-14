@@ -5,14 +5,14 @@ ChartJS.register(LinearScale, PointElement, Tooltip, Legend)
 
 export default function ComparisonScatter({ metrics }) {
   const defaults = {
-    Feedforward: { accuracy: 0.82, inference_times: 18.4 },
+    RNN: { accuracy: 0.82, inference_times: 18.4 },
     GRU: { accuracy: 0.85, inference_times: 31.2 },
     LSTM: { accuracy: 0.88, inference_times: 38.5 },
     BERT: { accuracy: 0.94, inference_times: 102.3 },
   }
   
   const m = metrics ? {
-    Feedforward: { accuracy: metrics.accuracy.Feedforward, inference_times: metrics.inference_times.Feedforward },
+    RNN: { accuracy: metrics.accuracy.RNN, inference_times: metrics.inference_times.RNN },
     GRU: { accuracy: metrics.accuracy.GRU, inference_times: metrics.inference_times.GRU },
     LSTM: { accuracy: metrics.accuracy.LSTM, inference_times: metrics.inference_times.LSTM },
     BERT: { accuracy: metrics.accuracy.BERT, inference_times: metrics.inference_times.BERT },

@@ -4,7 +4,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 export default function ModelSizePie({ metrics }) {
-  const labels = metrics?.model_sizes ? Object.keys(metrics.model_sizes) : ['Feedforward', 'GRU', 'LSTM', 'BERT']
+  const labels = metrics?.model_sizes ? Object.keys(metrics.model_sizes) : ['RNN', 'GRU', 'LSTM', 'BERT']
   const sizes = metrics?.model_sizes ? Object.values(metrics.model_sizes) : [12.3, 24.7, 29.1, 420.5]
 
   const data = {

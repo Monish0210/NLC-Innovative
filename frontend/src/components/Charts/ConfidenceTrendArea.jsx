@@ -10,7 +10,7 @@ export default function ConfidenceTrendArea() {
     labels,
     datasets: [
       { 
-        label: 'Feedforward', 
+        label: 'RNN', 
         data: [60,62,61,63,64,66,65,67,66,68], 
         borderColor: 'rgba(99,102,241,1)', 
         backgroundColor: 'rgba(99,102,241,0.15)', 

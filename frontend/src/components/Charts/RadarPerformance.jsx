@@ -5,7 +5,7 @@ ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, 
 
 function normalizeMetrics(metrics) {
   const defaults = {
-    Feedforward: { accuracy: 0.82, model_sizes: 12.3, inference_times: 18.4 },
+    RNN: { accuracy: 0.82, model_sizes: 12.3, inference_times: 18.4 },
     GRU: { accuracy: 0.85, model_sizes: 24.7, inference_times: 31.2 },
     LSTM: { accuracy: 0.88, model_sizes: 29.1, inference_times: 38.5 },
     BERT: { accuracy: 0.94, model_sizes: 420.5, inference_times: 102.3 },
