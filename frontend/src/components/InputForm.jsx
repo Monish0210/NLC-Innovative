@@ -16,7 +16,8 @@ export default function InputForm({ onResults }) {
     setError(null)
 
     try {
-      const response = await fetch('http://127.0.0.1:8008/predict', {
+      const apiUrl = process.env.REACT_APP_API_URL || "http://127.0.0.1:8008";
+      const response = await fetch(`${apiUrl}/predict`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
