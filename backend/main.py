@@ -74,7 +74,7 @@ def predict_sentiment(payload: PredictRequest) -> Dict[str, Any]:
 
     
     model_adjustments = {
-        "Feedforward": {"confidence_multiplier": 0.95, "time_ms": api_call_time_ms * 0.2 + 10},
+        "RNN": {"confidence_multiplier": 0.95, "time_ms": api_call_time_ms * 0.2 + 10},
         "GRU": {"confidence_multiplier": 0.98, "time_ms": api_call_time_ms * 0.4 + 20},
         "LSTM": {"confidence_multiplier": 0.99, "time_ms": api_call_time_ms * 0.5 + 30},
         "BERT": {"confidence_multiplier": 1.0, "time_ms": api_call_time_ms},
