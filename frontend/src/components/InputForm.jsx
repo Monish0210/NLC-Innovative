@@ -16,7 +16,7 @@ export default function InputForm({ onResults }) {
     setError(null)
 
     try {
-      const apiUrl = process.env.REACT_APP_API_URL || "http://127.0.0.1:8008";
+      const apiUrl = import.meta.env.VITE_API_URL || "http://127.0.0.1:8008";
       const response = await fetch(`${apiUrl}/predict`, {
         method: 'POST',
         headers: {
