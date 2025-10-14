@@ -47,9 +47,15 @@ class PredictRequest(BaseModel):
 
 app = FastAPI(title="Sentiment Analysis API")
 
+origins = [
+    "https://nlc-innovative.vercel.app", # Your deployed Vercel URL
+    "http://localhost:5173",                   
+    "http://localhost:3000"
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins, # Use the new, specific list here
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
